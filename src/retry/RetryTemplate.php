@@ -78,8 +78,6 @@ class RetryTemplate implements RetryOperations
 
             while ($this->canRetry($context)) {
                 try {
-                    $lastException = null;
-
                     return $retryCallback->doWithRetry($context);
                 } catch (\Exception $e) {
                     $this->registerException($context, $e);

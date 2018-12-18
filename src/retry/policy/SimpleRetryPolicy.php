@@ -41,7 +41,7 @@ class SimpleRetryPolicy implements RetryPolicy
     {
         $t = $context->getLastException();
 
-		return ($t === null || $this->retryForException($t)) && $context->getRetryCount() < $this->maxAttempts;
+        return ($t === null || $this->retryForException($t)) && $context->getRetryCount() < $this->maxAttempts;
     }
 
     /**
