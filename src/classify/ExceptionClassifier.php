@@ -17,17 +17,17 @@ class ExceptionClassifier
     /**
      * ExceptionClassifier constructor.
      *
-     * @param array $throwableMap
+     * @param array $exceptionMap
      */
-    public function __construct(array $throwableMap)
+    public function __construct(array $exceptionMap)
     {
-        if ($throwableMap === []) {
-            $throwableMap = [\Throwable::class => true];
+        if ($exceptionMap === []) {
+            $exceptionMap = [\Exception::class => true];
         }
 
         $this->valueSet = new ExceptionValueSortedSet();
 
-        foreach ($throwableMap as $throwableClass => $value) {
+        foreach ($exceptionMap as $throwableClass => $value) {
             $this->valueSet->put($throwableClass, $value);
         }
     }
