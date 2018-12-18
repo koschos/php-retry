@@ -1,0 +1,24 @@
+{
+    "name": "koschos/retry",
+    "description": "Port of spring retry",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "config": {
+        "bin-dir": "./bin/"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Koschos\\Retry\\": "src/retry",
+            "Koschos\\Retry\\Tests\\": "tests/retry",
+            "Koschos\\Classify\\": "src/classify",
+            "Koschos\\Classify\\Tests\\": "tests/classify"
+        }
+    },
+    "require": {
+        "php": "~5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    }
+}
