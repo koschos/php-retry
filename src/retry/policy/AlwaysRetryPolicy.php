@@ -1,6 +1,6 @@
 <?php
 
-namespace Koschos\retry\policy;
+namespace Koschos\Retry\Policy;
 
 use Koschos\Retry\RetryContext;
 

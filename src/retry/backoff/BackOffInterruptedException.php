@@ -1,8 +1,8 @@
 <?php
 
-namespace Koschos\retry\backoff;
+namespace Koschos\Retry\Backoff;
 
-use Koschos\retry\RetryException;
+use Koschos\Retry\RetryException;
 
 /**
  * Class BackOffInterruptedException

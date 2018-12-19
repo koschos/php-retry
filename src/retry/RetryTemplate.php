@@ -2,7 +2,7 @@
 
 namespace Koschos\Retry;
 
-use Koschos\retry\backoff\BackOffInterruptedException;
+use Koschos\Retry\Backoff\BackOffInterruptedException;
 use Koschos\Retry\Backoff\BackOffPolicy;
 use Koschos\Retry\Backoff\NoBackOffPolicy;
 use Koschos\Retry\Policy\SimpleRetryPolicy;
@@ -27,7 +27,7 @@ class RetryTemplate implements RetryOperations
      */
     public function __construct()
     {
-        $this->retryPolicy = new SimpleRetryPolicy(3, [\Exception::class, true]);
+        $this->retryPolicy = new SimpleRetryPolicy(3, [\Exception::class => true]);
         $this->backOffPolicy = new NoBackOffPolicy();
     }
 

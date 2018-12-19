@@ -1,6 +1,6 @@
 <?php
 
-namespace Koschos\retry\context;
+namespace Koschos\Retry\Context;
 
 /**
  * Class TimeoutRetryContext

@@ -1,7 +1,8 @@
 <?php
 
-namespace Koschos\retry\policy;
+namespace Koschos\Retry\Policy;
 
+use Koschos\Retry\Context\NeverRetryContext;
 use Koschos\Retry\RetryContext;
 use Koschos\Retry\RetryPolicy;
 

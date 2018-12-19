@@ -1,9 +1,9 @@
 <?php
 
-namespace Koschos\retry\policy;
+namespace Koschos\Retry\Policy;
 
 use Koschos\Retry\Context\DefaultRetryContext;
-use Koschos\retry\context\TimeoutRetryContext;
+use Koschos\Retry\Context\TimeoutRetryContext;
 use Koschos\Retry\RetryContext;
 use Koschos\Retry\RetryPolicy;
 

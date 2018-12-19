@@ -1,6 +1,6 @@
 <?php
 
-namespace Koschos\retry;
+namespace Koschos\Retry;
 
 /**
  * Class TerminatedRetryException

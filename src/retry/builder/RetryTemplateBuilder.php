@@ -1,13 +1,13 @@
 <?php
 
-namespace Koschos\retry\builder;
+namespace Koschos\Retry\Builder;
 
 use Koschos\Retry\Backoff\BackOffPolicy;
 use Koschos\Retry\Backoff\FixedBackOffPolicy;
-use Koschos\retry\policy\AlwaysRetryPolicy;
-use Koschos\retry\policy\NeverRetryPolicy;
+use Koschos\Retry\Policy\AlwaysRetryPolicy;
+use Koschos\Retry\Policy\NeverRetryPolicy;
 use Koschos\Retry\Policy\SimpleRetryPolicy;
-use Koschos\retry\policy\TimeoutRetryPolicy;
+use Koschos\Retry\Policy\TimeoutRetryPolicy;
 use Koschos\Retry\RetryPolicy;
 use Koschos\Retry\RetryTemplate;
 
