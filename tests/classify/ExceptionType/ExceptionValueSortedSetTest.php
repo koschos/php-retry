@@ -15,10 +15,12 @@ class ExceptionValueSortedSetTest extends \PHPUnit_Framework_TestCase
     public function shouldFindMoreSpecificExceptionsFirst()
     {
         $set = new ExceptionValueSortedSet();
-        $set->put(\LogicException::class, false);
-        $set->put(\BadFunctionCallException::class, true);
-        $set->put(\Exception::class, true);
-        $set->put(\DomainException::class, false);
+
+        $this->assertTrue($set->put(\LogicException::class, false));
+        $this->assertTrue($set->put(\BadFunctionCallException::class, true));
+        $this->assertTrue($set->put(\Exception::class, true));
+        $this->assertTrue($set->put(\DomainException::class, false));
+        $this->assertFalse($set->put(\DomainException::class, true), 'can\'t replace value');
 
         $this->assertTrue($set->get(new \BadMethodCallException()), 'inherited from \BadFunctionCallException');
         $this->assertFalse($set->get(new \InvalidArgumentException()), 'inherited from \LogicException');
