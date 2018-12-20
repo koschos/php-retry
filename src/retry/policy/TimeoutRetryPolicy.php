@@ -68,7 +68,7 @@ class TimeoutRetryPolicy implements RetryPolicy
     public function registerException(RetryContext $context, \Exception $exception)
     {
         if ($context instanceof DefaultRetryContext) {
-            $context->registerException($context);
+            $context->registerException($exception);
         }
     }
 

@@ -2,6 +2,8 @@
 
 namespace Koschos\Retry\Context;
 
+use Koschos\Retry\Context\Util\TimeUtil;
+
 /**
  * Class TimeoutRetryContext
  */
@@ -23,7 +25,7 @@ class TimeoutRetryContext extends DefaultRetryContext
      */
     public function __construct($timeout)
     {
-        $this->start = microtime(true);
+        $this->start = TimeUtil::milliseconds();
         $this->timeout = $timeout;
     }
 
@@ -32,6 +34,6 @@ class TimeoutRetryContext extends DefaultRetryContext
      */
     public function isAlive()
     {
-        return (microtime(true) - $this->start) <= $this->timeout;
+        return (TimeUtil::milliseconds() - $this->start) <= $this->timeout;
     }
 }
