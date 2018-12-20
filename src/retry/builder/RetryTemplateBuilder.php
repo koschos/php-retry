@@ -35,6 +35,30 @@ class RetryTemplateBuilder
     }
 
     /**
+     * @param RetryPolicy $retryPolicy
+     *
+     * @return RetryTemplateBuilder
+     */
+    public function withRetryPolicy($retryPolicy)
+    {
+        $this->retryPolicy = $retryPolicy;
+
+        return $this;
+    }
+
+    /**
+     * @param BackOffPolicy $backOffPolicy
+     *
+     * @return RetryTemplateBuilder
+     */
+    public function withBackOffPolicy($backOffPolicy)
+    {
+        $this->backOffPolicy = $backOffPolicy;
+
+        return $this;
+    }
+
+    /**
      * @param $maxAttempts
      *
      * @return RetryTemplateBuilder
