@@ -28,7 +28,7 @@ final class FixedBackOffPolicy implements BackOffPolicy
      */
     public function backOff(RetryContext $context)
     {
-        usleep($this->backOffPeriod);
+        usleep($this->backOffPeriod * 1000);
     }
 
     /**
