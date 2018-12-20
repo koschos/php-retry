@@ -7,7 +7,7 @@ use Koschos\Retry\RetryContext;
 /**
  * Class AlwaysRetryPolicy
  */
-class AlwaysRetryPolicy extends NeverRetryPolicy
+final class AlwaysRetryPolicy extends NeverRetryPolicy
 {
     /**
      * @inheritdoc

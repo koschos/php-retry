@@ -10,7 +10,7 @@ use Koschos\Retry\RetryPolicy;
 /**
  * Class SimpleRetryPolicy
  */
-class SimpleRetryPolicy implements RetryPolicy
+final class SimpleRetryPolicy implements RetryPolicy
 {
     /**
      * @var int

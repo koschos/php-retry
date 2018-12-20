@@ -10,7 +10,7 @@ use Koschos\Retry\RetryPolicy;
 /**
  * Class TimeoutRetryPolicy
  */
-class TimeoutRetryPolicy implements RetryPolicy
+final class TimeoutRetryPolicy implements RetryPolicy
 {
     const DEFAULT_TIMEOUT = 1000;
 

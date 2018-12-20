@@ -7,7 +7,7 @@ use Koschos\Retry\Context\Util\TimeUtil;
 /**
  * Class TimeoutRetryContext
  */
-class TimeoutRetryContext extends DefaultRetryContext
+final class TimeoutRetryContext extends DefaultRetryContext
 {
     /**
      * @var float
