@@ -1,7 +1,7 @@
 # Overview
 
-This project is port from the great spring retry project https://github.com/spring-projects/spring-retry in php
-which is often used in java projects.
+PHP library for retries.
+This is port of spring retry https://github.com/spring-projects/spring-retry
 
 # Not ported
 
@@ -86,7 +86,7 @@ In the example we execute a web service call and return the result to the user. 
 
 ## RetryContext
 
-The method parameter for the RetryCallback is a RetryContext. Many callbacks will simply ignore the context, but if necessary it can be used to store data for the duration of the iteration.
+The method parameter for the <code>RetryCallback</code> is a <code>RetryContext</code>. Many callbacks will simply ignore the context, but if necessary it can be used to store data for the duration of the iteration.
 
 ## RecoveryCallback
 
@@ -99,11 +99,24 @@ $template->executeWithRecovery($myRetryCallback, $myRecoveryCallback);
 
 ## Retry Policies
 
-Inside a RetryTemplate the decision to retry or fail in the execute method is determined by a RetryPolicy which is also a factory for the RetryContext. 
+Inside a RetryTemplate the decision to retry or fail in the execute method is determined by a <code>RetryPolicy</code> which is also a factory for the RetryContext. 
 The RetryTemplate has the responsibility to use the current policy to create a RetryContext and pass that in to the RetryCallback at every attempt. 
-After a callback fails the RetryTemplate has to make a call to the RetryPolicy to ask it to update its state (which will be stored in the RetryContext), and then it asks the policy if another attempt can be made. 
+After a callback fails the <code>RetryTemplate</code> has to make a call to the RetryPolicy to ask it to update its state (which will be stored in the RetryContext), and then it asks the policy if another attempt can be made. 
 If another attempt cannot be made (e.g. a limit is reached or a timeout is detected) then the policy is also responsible for identifying the exhausted state, but not for handling the exception. 
 The RetryTemplate will throw the original exception, when no recover is available.
+
+```php
+interface RetryPolicy
+{
+    public function canRetry(RetryContext $context);
+
+    public function open();
+
+    public function close(RetryContext $context);
+
+    public function registerException(RetryContext $context, \Exception $exception);
+}
+```
 
 Retry provides some simple general purpose implementations of stateless RetryPolicy, for example a <code>SimpleRetryPolicy</code>, and the <code>TimeoutRetryPolicy</code> used in the example above.
 
@@ -113,10 +126,16 @@ The <code>SimpleRetryPolicy</code> just allows a retry on any of a named list of
 $policy = new SimpleRetryPolicy(5, [\Exception.class, true]);
 ```
 
+Retry provides next retry policies:
+* SimpleRetryPolicy
+* TimeoutRetryPolicy
+* AlwaysRetryPolicy
+* NeverRetryPolicy
+
 ## BackOff Policies
 
 When retrying after a transient failure it often helps to wait a bit before trying again, because usually the failure is caused by some problem that will only be resolved by waiting. 
-If a <code>RetryCallback</code> fails, the <code>RetryTemplate</code> can pause execution according to the <code>BackoffPolicy</code> in place.
+If a <code>RetryCallback</code> fails, the <code>RetryTemplate</code> can pause execution according to the <code>BackOffPolicy</code> in place.
 
 ```php
 interface BackOffPolicy
@@ -126,3 +145,7 @@ interface BackOffPolicy
     public function backOff(RetryContext $context);
 }
 ```
+
+Retry provides next backoff policies:
+* NoBackOffPolicy
+* FixedBackOffPolicy
