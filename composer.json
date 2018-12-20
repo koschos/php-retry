@@ -1,6 +1,6 @@
 {
-    "name": "koschos/retry",
-    "description": "Port of spring retry",
+    "name": "koschos/php-retry",
+    "description": "PHP retry library which is a port of the spring retry",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
