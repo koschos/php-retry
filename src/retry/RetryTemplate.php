@@ -92,7 +92,7 @@ class RetryTemplate implements RetryOperations
 
             return $this->handleRetryExhausted($context, $recoveryCallback);
         } catch (\Exception $e) {
-            throw $this->wrapException($e);
+            throw $this->wrapExceptionIfNeeded($e);
         } finally {
             $this->close($context);
         }
@@ -122,7 +122,7 @@ class RetryTemplate implements RetryOperations
             return $recoveryCallback->recover($context);
         }
 
-        throw $this->wrapException($context->getLastException());
+        throw $this->wrapExceptionIfNeeded($context->getLastException());
     }
 
     /**
@@ -138,9 +138,12 @@ class RetryTemplate implements RetryOperations
      *
      * @return RetryException
      */
-    protected function wrapException(\Exception $exception)
+    protected function wrapExceptionIfNeeded(\Exception $exception)
     {
-        return new RetryException('Exception in batch process', $exception);
+        return $exception instanceof RetryException
+            ? $exception
+            : new RetryException('Exception in batch process', $exception)
+        ;
     }
 
     /**
