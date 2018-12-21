@@ -17,7 +17,7 @@ abstract class AbstractRetryTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function createRetryCallback($countFails)
     {
-        $retryCallback = $this->getMock(RetryCallback::class);
+        $retryCallback = $this->getMockBuilder(RetryCallback::class)->getMock();
 
         for ($i = 0; $i < $countFails; $i++) {
             $retryCallback->expects($this->at($i))->method('doWithRetry')->willThrowException(new \Exception($i));
@@ -33,7 +33,7 @@ abstract class AbstractRetryTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function createAlwaysFailingRetryCallback()
     {
-        $retryCallback = $this->getMock(RetryCallback::class);
+        $retryCallback = $this->getMockBuilder(RetryCallback::class)->getMock();
         $retryCallback->expects($this->any())->method('doWithRetry')->willThrowException(new \Exception());
 
         return $retryCallback;
@@ -46,7 +46,7 @@ abstract class AbstractRetryTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function createBackOffPolicy($countBackOffs)
     {
-        $backOffPolicy = $this->getMock(BackOffPolicy::class);
+        $backOffPolicy = $this->getMockBuilder(BackOffPolicy::class)->getMock();
         $backOffPolicy->expects($this->once())->method('start');
         $backOffPolicy->expects($this->exactly($countBackOffs))->method('backOff');
 

@@ -31,7 +31,7 @@ class SimpleRetryPolicyTest extends AbstractRetryTestCase
      */
     public function maxAttemptsExceeded()
     {
-        $retryCallback = $this->getMock(RetryCallback::class);
+        $retryCallback = $this->getMockBuilder(RetryCallback::class)->getMock();
         $retryCallback->expects($this->any())->method('doWithRetry')->willThrowException(new \Exception());
 
         $retryTemplate = RetryTemplateBuilder::getBuilder()

@@ -18,7 +18,7 @@ class TimeoutRetryPolicyTest extends AbstractRetryTestCase
      */
     public function failedAfterTimeout()
     {
-        $retryCallback = $this->getMock(RetryCallback::class);
+        $retryCallback = $this->getMockBuilder(RetryCallback::class)->getMock();
 
         $retryCallback->expects($this->any())->method('doWithRetry')->willReturnCallback(function () {
             // Emulate latency to save memory
@@ -48,7 +48,7 @@ class TimeoutRetryPolicyTest extends AbstractRetryTestCase
      */
     public function successWithinTimeout()
     {
-        $retryCallback = $this->getMock(RetryCallback::class);
+        $retryCallback = $this->getMockBuilder(RetryCallback::class)->getMock();
 
         $retryCallback->expects($this->at(0))->method('doWithRetry')->willReturnCallback(function () {
             // Emulate latency to save memory

@@ -25,15 +25,15 @@ class RetryTemplateTest extends AbstractRetryTestCase
     {
         $retryCallback = $this->createRetryCallback(1);
 
-        $context = $this->getMock(RetryContext::class);
+        $context = $this->getMockBuilder(RetryContext::class)->getMock();
 
-        $retryPolicy = $this->getMock(RetryPolicy::class);
+        $retryPolicy = $this->getMockBuilder(RetryPolicy::class)->getMock();
         $retryPolicy->expects($this->once())->method('open')->willReturn($context);
         $retryPolicy->expects($this->any())->method('canRetry')->with($context)->willReturn(true);
         $retryPolicy->expects($this->once())->method('registerException')->with($context, new \Exception(0));
         $retryPolicy->expects($this->once())->method('close')->with($context);
 
-        $backOffPolicy = $this->getMock(BackOffPolicy::class);
+        $backOffPolicy = $this->getMockBuilder(BackOffPolicy::class)->getMock();
         $backOffPolicy->expects($this->once())->method('start')->with($context);
         $backOffPolicy->expects($this->once())->method('backOff')->with($context);
 
@@ -116,7 +116,7 @@ class RetryTemplateTest extends AbstractRetryTestCase
     {
         $retryCallback = $this->createAlwaysFailingRetryCallback();
 
-        $backOffPolicy = $this->getMock(BackOffPolicy::class);
+        $backOffPolicy = $this->getMockBuilder(BackOffPolicy::class)->getMock();
         $backOffPolicy->expects($this->once())->method('start');
         $backOffPolicy->expects($this->once())->method('backOff')->willThrowException(new \LogicException());
 
@@ -139,7 +139,7 @@ class RetryTemplateTest extends AbstractRetryTestCase
 
         $context = new DefaultRetryContext();
 
-        $retryPolicy = $this->getMock(RetryPolicy::class);
+        $retryPolicy = $this->getMockBuilder(RetryPolicy::class)->getMock();
         $retryPolicy->expects($this->once())->method('open')->willReturn($context);
         $retryPolicy->expects($this->once())->method('canRetry')->with($context)->willReturn(true);
 
