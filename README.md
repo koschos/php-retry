@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/koschos/php-retry.svg?branch=master)](https://travis-ci.com/koschos/php-retry)
+
 # Overview
 
 PHP library for retries.
@@ -10,6 +12,14 @@ This is port of spring retry https://github.com/spring-projects/spring-retry
 * retry context parameter bag
 * retry listeners
 * some policies
+
+# Installation
+
+Install package as composer dependency.
+
+```bash
+composer require koschos/php-retry
+```
 
 # Quick start
 
