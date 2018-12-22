@@ -30,13 +30,7 @@ class ExceptionValueSortedSet
         $this->comparator = new ClassComparator();
     }
 
-    /**
-     * @param string $exceptionClass
-     *
-     * @param bool $value
-     * @return bool
-     */
-    public function put($exceptionClass, $value)
+    public function put(string $exceptionClass, bool $value): bool
     {
         $exceptionType = new ExceptionType($exceptionClass);
 

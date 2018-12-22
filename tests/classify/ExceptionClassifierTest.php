@@ -3,11 +3,12 @@
 namespace Koschos\Classify\Tests;
 
 use Koschos\Classify\ExceptionClassifier;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ExceptionClassifierTest
  */
-class ExceptionClassifierTest extends \PHPUnit_Framework_TestCase
+class ExceptionClassifierTest extends TestCase
 {
     /**
      * @test
@@ -55,7 +56,7 @@ class ExceptionClassifierTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldFailIfNotExceptionInTheMap(array $map)
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         new ExceptionClassifier($map);
     }

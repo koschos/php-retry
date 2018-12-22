@@ -3,14 +3,17 @@
 namespace Koschos\Classify\Tests\ExceptionType;
 
 use Koschos\Classify\ExceptionType\ExceptionValueSortedSet;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ExceptionValueSortedSetTest
  */
-class ExceptionValueSortedSetTest extends \PHPUnit_Framework_TestCase
+class ExceptionValueSortedSetTest extends TestCase
 {
     /**
      * @test
+     *
+     * @throws \Exception
      */
     public function shouldFindMoreSpecificExceptionsFirst()
     {

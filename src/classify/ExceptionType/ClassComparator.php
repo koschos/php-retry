@@ -7,7 +7,7 @@ namespace Koschos\Classify\ExceptionType;
  */
 class ClassComparator
 {
-    public function compare($class1, $class2)
+    public function compare(string $class1, string $class2): int
     {
         if ($class1 === $class2) {
             return 0;
