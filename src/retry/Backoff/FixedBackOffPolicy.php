@@ -16,17 +16,11 @@ final class FixedBackOffPolicy implements BackOffPolicy
      */
     private $backOffPeriod = 1000;
 
-    /**
-     * @param RetryContext $context
-     */
-    public function start(RetryContext $context)
+    public function start(RetryContext $context): void
     {
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function backOff(RetryContext $context)
+    public function backOff(RetryContext $context): void
     {
         usleep($this->backOffPeriod * 1000);
     }
@@ -34,7 +28,7 @@ final class FixedBackOffPolicy implements BackOffPolicy
     /**
      * @return int
      */
-    public function getBackOffPeriod()
+    public function getBackOffPeriod(): int
     {
         return $this->backOffPeriod;
     }
@@ -42,7 +36,7 @@ final class FixedBackOffPolicy implements BackOffPolicy
     /**
      * @param int $backOffPeriod
      */
-    public function setBackOffPeriod($backOffPeriod)
+    public function setBackOffPeriod(int $backOffPeriod)
     {
         $this->backOffPeriod = $backOffPeriod > 0 ? $backOffPeriod : 1;
     }

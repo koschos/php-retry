@@ -29,10 +29,7 @@ final class TimeoutRetryContext extends DefaultRetryContext
         $this->timeout = $timeout;
     }
 
-    /**
-     * @return bool
-     */
-    public function isAlive()
+    public function isAlive(): bool
     {
         return (TimeUtil::milliseconds() - $this->start) <= $this->timeout;
     }

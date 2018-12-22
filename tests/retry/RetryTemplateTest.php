@@ -6,7 +6,9 @@ use Koschos\Retry\Backoff\BackOffInterruptedException;
 use Koschos\Retry\Backoff\BackOffPolicy;
 use Koschos\Retry\Builder\RetryTemplateBuilder;
 use Koschos\Retry\Context\DefaultRetryContext;
+use Koschos\retry\IllegalExhaustedStateException;
 use Koschos\Retry\RecoveryCallback;
+use Koschos\Retry\RetryCallback;
 use Koschos\Retry\RetryContext;
 use Koschos\Retry\RetryException;
 use Koschos\Retry\RetryPolicy;
@@ -18,6 +20,24 @@ use Koschos\Retry\TerminatedRetryException;
  */
 class RetryTemplateTest extends AbstractRetryTestCase
 {
+    /**
+     * @test
+     */
+    public function shouldSupportRuntimeCallback()
+    {
+        $template = RetryTemplateBuilder::getBuilder()
+            ->neverRetry()
+            ->build();
+
+        $this->expectException(RetryException::class);
+
+        $template->execute(new class implements RetryCallback {
+            public function doWithRetry(RetryContext $context) {
+                throw new \Exception('Never give up!');
+            }
+        });
+    }
+
     /**
      * @test
      */
@@ -87,7 +107,7 @@ class RetryTemplateTest extends AbstractRetryTestCase
             ->neverRetry()
             ->build();
 
-        $this->setExpectedException(RetryException::class);
+        $this->expectException(RetryException::class);
 
         $retryTemplate->execute($retryCallback);
     }
@@ -99,7 +119,7 @@ class RetryTemplateTest extends AbstractRetryTestCase
     {
         $retryCallback = $this->createAlwaysFailingRetryCallback();
 
-        $recoveryCallback = $this->getMock(RecoveryCallback::class);
+        $recoveryCallback = $this->getMockBuilder(RecoveryCallback::class)->getMock();
         $recoveryCallback->expects($this->once())->method('recover')->willReturn('recovered');
 
         $retryTemplate = RetryTemplateBuilder::getBuilder()
@@ -125,7 +145,27 @@ class RetryTemplateTest extends AbstractRetryTestCase
             ->withBackOffPolicy($backOffPolicy)
             ->build();
 
-        $this->setExpectedException(BackOffInterruptedException::class);
+        $this->expectException(BackOffInterruptedException::class);
+
+        $retryTemplate->execute($retryCallback);
+    }
+
+    /**
+     * @test
+     */
+    public function illegalExhaustedState()
+    {
+        $retryCallback = $this->createAlwaysFailingRetryCallback();
+
+        $retryPolicy = $this->getMockBuilder(RetryPolicy::class)->getMock();
+        $retryPolicy->expects($this->once())->method('open')->willReturn(new DefaultRetryContext());
+        $retryPolicy->expects($this->once())->method('canRetry')->willReturn(false);
+
+        $retryTemplate = RetryTemplateBuilder::getBuilder()
+            ->withRetryPolicy($retryPolicy)
+            ->build();
+
+        $this->expectException(IllegalExhaustedStateException::class);
 
         $retryTemplate->execute($retryCallback);
     }
@@ -150,7 +190,7 @@ class RetryTemplateTest extends AbstractRetryTestCase
             ->withRetryPolicy($retryPolicy)
             ->build();
 
-        $this->setExpectedException(TerminatedRetryException::class);
+        $this->expectException(TerminatedRetryException::class);
 
         $retryTemplate->execute($retryCallback);
     }

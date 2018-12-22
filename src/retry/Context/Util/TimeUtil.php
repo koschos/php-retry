@@ -7,13 +7,10 @@ namespace Koschos\Retry\Context\Util;
  */
 class TimeUtil
 {
-    /**
-     * @return string
-     */
-    public static function milliseconds()
+    public static function milliseconds(): int
     {
         $microTimeParts = explode(' ', microtime());
 
-        return sprintf('%d%03d', $microTimeParts[1], $microTimeParts[0] * 1000);
+        return (int) sprintf('%d%03d', $microTimeParts[1], $microTimeParts[0] * 1000);
     }
 }

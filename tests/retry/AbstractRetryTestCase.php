@@ -4,11 +4,12 @@ namespace Koschos\Retry\Tests;
 
 use Koschos\Retry\Backoff\BackOffPolicy;
 use Koschos\Retry\RetryCallback;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class AbstractRetryTestCase
  */
-abstract class AbstractRetryTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractRetryTestCase extends TestCase
 {
     /**
      * @param int $countFails
