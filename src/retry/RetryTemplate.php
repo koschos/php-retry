@@ -84,8 +84,6 @@ class RetryTemplate implements RetryOperations
 
                     if ($this->canRetry($context)) {
                         $this->backOff($context);
-                    } else {
-                        throw $e;
                     }
                 }
             }
@@ -118,6 +116,10 @@ class RetryTemplate implements RetryOperations
      */
     protected function handleRetryExhausted(RetryContext $context, RecoveryCallback $recoveryCallback = null)
     {
+        if ($context->getLastException() === null) {
+            throw new IllegalExhaustedStateException($context);
+        }
+
         if ($recoveryCallback !== null) {
             return $recoveryCallback->recover($context);
         }

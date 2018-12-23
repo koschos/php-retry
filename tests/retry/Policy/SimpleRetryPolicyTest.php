@@ -38,7 +38,7 @@ class SimpleRetryPolicyTest extends AbstractRetryTestCase
             ->withMaxAttempts(2)
             ->build();
 
-        $this->setExpectedException(RetryException::class);
+        $this->expectException(RetryException::class);
 
         $retryTemplate->execute($retryCallback);
     }

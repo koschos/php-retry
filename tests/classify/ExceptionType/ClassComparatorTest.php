@@ -3,11 +3,12 @@
 namespace Koschos\Classify\Tests\ExceptionType;
 
 use Koschos\Classify\ExceptionType\ClassComparator;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ClassComparatorTest
  */
-class ClassComparatorTest extends \PHPUnit_Framework_TestCase
+class ClassComparatorTest extends TestCase
 {
     /**
      * @dataProvider provider

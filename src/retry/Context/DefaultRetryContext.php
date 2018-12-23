@@ -22,7 +22,7 @@ class DefaultRetryContext implements RetryContext
     /**
      * @return int
      */
-    public function getRetryCount()
+    public function getRetryCount(): int
     {
         return $this->count;
     }

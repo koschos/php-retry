@@ -25,30 +25,21 @@ composer require koschos/php-retry
 
 Example
 
-Implement RetryCallback interface and place there dangerous code which you want to be retried
 
+You just need to create retry template, which you should is your retry configuration.
 ```php
-// Implement RetryCallback interface
-
-class MyRetryCallback implements RetryCallback {
-    public function doWithRetry(RetryContext $context)
-    {
-        // dangerous code which might fail
-    }
-}
-```
-
-Then you only have to create retry template, which you should considerate as retry configuration.
-```php
-// Build retry template with 5 retries and 1 second waits between them
+// Build retry template with 5 retries and 100 milliseconds waits between them
 $retryTemplate = RetryTemplateBuilder::getBuilder()
     ->withMaxAttempts(5)
-    ->withBackOffPeriod(1)
+    ->withBackOffPeriod(100)
     ->build();
 
 // And run your code placed inside callback
-$retryCallback = new MyRetryCallback();
-$result = $retryTemplate->execute($retryCallback);
+$result = $retryTemplate->execute(new class implements RetryCallback {
+  public function doWithRetry(RetryContext $context) {
+      // dangerous code
+  }
+});
 ```
 # Features and API
 

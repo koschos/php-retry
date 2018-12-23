@@ -7,30 +7,11 @@ namespace Koschos\Retry;
  */
 interface RetryPolicy
 {
-    /**
-     * @param RetryContext $context
-     *
-     * @return bool
-     */
-    public function canRetry(RetryContext $context);
+    public function canRetry(RetryContext $context): bool;
 
-    /**
-     * @return RetryContext
-     */
-    public function open();
+    public function open(): RetryContext;
 
-    /**
-     * @param RetryContext $context
-     *
-     * @return void
-     */
-    public function close(RetryContext $context);
+    public function close(RetryContext $context): void;
 
-    /**
-     * @param RetryContext $context
-     * @param \Exception   $exception
-     *
-     * @return void
-     */
-    public function registerException(RetryContext $context, \Exception $exception);
+    public function registerException(RetryContext $context, \Exception $exception): void;
 }

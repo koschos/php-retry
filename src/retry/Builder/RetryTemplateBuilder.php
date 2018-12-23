@@ -26,56 +26,33 @@ class RetryTemplateBuilder
      */
     private $backOffPolicy;
 
-    /**
-     * @return RetryTemplateBuilder
-     */
-    public static function getBuilder()
+    public static function getBuilder(): RetryTemplateBuilder
     {
         return new static();
     }
 
-    /**
-     * @param RetryPolicy $retryPolicy
-     *
-     * @return RetryTemplateBuilder
-     */
-    public function withRetryPolicy($retryPolicy)
+    public function withRetryPolicy(RetryPolicy $retryPolicy): RetryTemplateBuilder
     {
         $this->retryPolicy = $retryPolicy;
 
         return $this;
     }
 
-    /**
-     * @param BackOffPolicy $backOffPolicy
-     *
-     * @return RetryTemplateBuilder
-     */
-    public function withBackOffPolicy($backOffPolicy)
+    public function withBackOffPolicy(BackOffPolicy $backOffPolicy): RetryTemplateBuilder
     {
         $this->backOffPolicy = $backOffPolicy;
 
         return $this;
     }
 
-    /**
-     * @param $maxAttempts
-     *
-     * @return RetryTemplateBuilder
-     */
-    public function withMaxAttempts($maxAttempts)
+    public function withMaxAttempts(int $maxAttempts): RetryTemplateBuilder
     {
         $this->retryPolicy = new SimpleRetryPolicy($maxAttempts);
 
         return $this;
     }
 
-    /**
-     * @param $timeout
-     *
-     * @return RetryTemplateBuilder
-     */
-    public function withTimeout($timeout)
+    public function withTimeout(int $timeout): RetryTemplateBuilder
     {
         $this->retryPolicy = new TimeoutRetryPolicy();
         $this->retryPolicy->setTimeout($timeout);
@@ -83,32 +60,21 @@ class RetryTemplateBuilder
         return $this;
     }
 
-    /**
-     * @return RetryTemplateBuilder
-     */
-    public function alwaysRetry()
+    public function alwaysRetry(): RetryTemplateBuilder
     {
         $this->retryPolicy = new AlwaysRetryPolicy();
 
         return $this;
     }
 
-    /**
-     * @return RetryTemplateBuilder
-     */
-    public function neverRetry()
+    public function neverRetry(): RetryTemplateBuilder
     {
         $this->retryPolicy = new NeverRetryPolicy();
 
         return $this;
     }
 
-    /**
-     * @param $backOffPeriod
-     *
-     * @return RetryTemplateBuilder
-     */
-    public function withBackOffPeriod($backOffPeriod)
+    public function withBackOffPeriod(int $backOffPeriod): RetryTemplateBuilder
     {
         $this->backOffPolicy = new FixedBackOffPolicy();
         $this->backOffPolicy->setBackOffPeriod($backOffPeriod);
@@ -116,10 +82,7 @@ class RetryTemplateBuilder
         return $this;
     }
 
-    /**
-     * @return RetryTemplate
-     */
-    public function build()
+    public function build(): RetryTemplate
     {
         $retryTemplate = new RetryTemplate();
 

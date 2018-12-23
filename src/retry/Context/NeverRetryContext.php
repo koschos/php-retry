@@ -22,10 +22,7 @@ final class NeverRetryContext extends DefaultRetryContext implements RetryContex
         $this->finished = true;
     }
 
-    /**
-     * @return bool
-     */
-    public function isFinished()
+    public function isFinished(): bool
     {
         return $this->finished;
     }

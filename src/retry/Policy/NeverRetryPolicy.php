@@ -11,42 +11,29 @@ use Koschos\Retry\RetryPolicy;
  */
 class NeverRetryPolicy implements RetryPolicy
 {
-    /**
-     * @inheritdoc
-     */
-    public function canRetry(RetryContext $context)
+    public function canRetry(RetryContext $context): bool
     {
         if ($context instanceof NeverRetryContext) {
-            return $context->isFinished();
+            return !$context->isFinished();
         }
 
-        return true;
+        return false;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function open()
+    public function open(): RetryContext
     {
         return new NeverRetryContext();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function close(RetryContext $context)
+    public function close(RetryContext $context): void
     {
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function registerException(RetryContext $context, \Exception $exception)
+    public function registerException(RetryContext $context, \Exception $exception): void
     {
         if ($context instanceof NeverRetryContext) {
             $context->registerException($exception);
             $context->setFinished();
         }
     }
-
 }

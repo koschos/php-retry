@@ -28,41 +28,29 @@ final class SimpleRetryPolicy implements RetryPolicy
      * @param int   $maxAttempts
      * @param array $exceptionClassValueMap
      */
-    public function __construct($maxAttempts, array $exceptionClassValueMap = [])
+    public function __construct(int $maxAttempts, array $exceptionClassValueMap = [])
     {
         $this->maxAttempts = $maxAttempts;
         $this->retryableClassifier = new ExceptionClassifier($exceptionClassValueMap);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function canRetry(RetryContext $context)
+    public function canRetry(RetryContext $context): bool
     {
         $e = $context->getLastException();
 
         return ($e === null || $this->retryForException($e)) && $context->getRetryCount() < $this->maxAttempts;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function open()
+    public function open(): RetryContext
     {
         return new DefaultRetryContext();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function close(RetryContext $context)
+    public function close(RetryContext $context): void
     {
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function registerException(RetryContext $context, \Exception $exception)
+    public function registerException(RetryContext $context, \Exception $exception): void
     {
         if ($context instanceof DefaultRetryContext) {
             $context->registerException($exception);
@@ -72,7 +60,7 @@ final class SimpleRetryPolicy implements RetryPolicy
     /**
      * @param \Exception $exception
      *
-     * @return bool|null
+     * @return bool
      */
     private function retryForException(\Exception $exception)
     {

@@ -9,17 +9,7 @@ use Koschos\Retry\RetryContext;
  */
 interface BackOffPolicy
 {
-    /**
-     * @param RetryContext $context
-     *
-     * @return void
-     */
-    public function start(RetryContext $context);
+    public function start(RetryContext $context): void;
 
-    /**
-     * @param RetryContext $context
-     *
-     * @return void
-     */
-    public function backOff(RetryContext $context);
+    public function backOff(RetryContext $context): void;
 }

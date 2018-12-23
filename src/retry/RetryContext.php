@@ -10,10 +10,10 @@ interface RetryContext
     /**
      * @return int
      */
-    public function getRetryCount();
+    public function getRetryCount(): int;
 
     /**
-     * @return \Exception
+     * @return \Exception|null
      */
     public function getLastException();
 }

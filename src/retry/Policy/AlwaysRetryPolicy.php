@@ -9,10 +9,7 @@ use Koschos\Retry\RetryContext;
  */
 final class AlwaysRetryPolicy extends NeverRetryPolicy
 {
-    /**
-     * @inheritdoc
-     */
-    public function canRetry(RetryContext $context)
+    public function canRetry(RetryContext $context): bool
     {
         return true;
     }

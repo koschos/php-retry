@@ -35,10 +35,7 @@ final class TimeoutRetryPolicy implements RetryPolicy
         $this->timeout = (int) $timeout;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function canRetry(RetryContext $context)
+    public function canRetry(RetryContext $context): bool
     {
         if ($context instanceof TimeoutRetryContext) {
             return $context->isAlive();
@@ -47,25 +44,16 @@ final class TimeoutRetryPolicy implements RetryPolicy
         return false;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function open()
+    public function open(): RetryContext
     {
         return new TimeoutRetryContext($this->timeout);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function close(RetryContext $context)
+    public function close(RetryContext $context): void
     {
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function registerException(RetryContext $context, \Exception $exception)
+    public function registerException(RetryContext $context, \Exception $exception): void
     {
         if ($context instanceof DefaultRetryContext) {
             $context->registerException($exception);

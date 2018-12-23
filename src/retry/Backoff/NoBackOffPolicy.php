@@ -9,17 +9,11 @@ use Koschos\Retry\RetryContext;
  */
 final class NoBackOffPolicy implements BackOffPolicy
 {
-    /**
-     * @inheritdoc
-     */
-    public function start(RetryContext $context)
+    public function start(RetryContext $context): void
     {
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function backOff(RetryContext $context)
+    public function backOff(RetryContext $context): void
     {
     }
 }

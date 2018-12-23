@@ -25,7 +25,7 @@ class ExceptionClassifier
      * @param array $exceptionMap
      * @param bool  $defaultValue
      */
-    public function __construct(array $exceptionMap = [], $defaultValue = true)
+    public function __construct(array $exceptionMap = [], bool $defaultValue = true)
     {
         if ($exceptionMap === []) {
             $exceptionMap = [\Exception::class => true];
@@ -42,9 +42,9 @@ class ExceptionClassifier
     /**
      * @param \Exception $exception
      *
-     * @return bool|null
+     * @return bool
      */
-    public function classify(\Exception $exception)
+    public function classify(\Exception $exception): bool
     {
         $value = $this->valueSet->get($exception);
 
