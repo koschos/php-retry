@@ -2,7 +2,7 @@
 
 # Overview
 
-PHP library for retries.
+PHP library for doing retries.
 This is port of spring retry https://github.com/spring-projects/spring-retry
 
 # Not ported
